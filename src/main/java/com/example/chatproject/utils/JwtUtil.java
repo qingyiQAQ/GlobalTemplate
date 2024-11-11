@@ -24,7 +24,7 @@ public class JwtUtil {
                 .build()
                 .verify(token)
                 .getClaim("claims")
-                .toString();
+                .asString();
     }
 
 }
