@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.util.Map;
-
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
@@ -17,7 +15,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         //验证token
         try {
-            JwtUtil.validateToken(token);
+            long id = Long.parseLong(JwtUtil.validateToken(token));
+            ThreadLocalUtil.set(id);
             return true;
         } catch (Exception e) {
             //http响应状态码为401
